@@ -164,7 +164,7 @@ public class NPuzzleLib {
 						else {
 							puzzle[x][y] = puzzle[x+1][y];
 							puzzle[x+1][y] = temp;
-							x++;
+						 x++;
 						}
 					}
 					else if(moves[1] == true && moves[2] == true) {
@@ -188,7 +188,7 @@ public class NPuzzleLib {
 						else {
 							puzzle[x][y] = puzzle[x+1][y];
 							puzzle[x+1][y] = temp;
-							x++;
+						 x++;
 						}
 				}
 					else if(moves[0] == true && moves[1] == true) {
@@ -200,7 +200,7 @@ public class NPuzzleLib {
 						else {
 							puzzle[x][y] = puzzle[x-1][y];
 							puzzle[x-1][y] = temp;
-							x--;
+						 x--;
 						}
 				}
 					
@@ -299,7 +299,7 @@ public class NPuzzleLib {
 						else if(timi>0.33 && timi<=0.66) {
 							puzzle[x][y] = puzzle[x][y+1];
 							puzzle[x][y+1] = temp;
-							y++;
+						 y++;
 						}
 						else {
 							puzzle[x][y] = puzzle[x+1][y];
@@ -355,7 +355,7 @@ public class NPuzzleLib {
 						else {
 							puzzle[x][y] = puzzle[x+1][y];
 							puzzle[x+1][y] = temp;
-							x++;
+						 x++;
 						}
 					}
 					else if(moves[1] == true && moves[2] == true) {
@@ -367,7 +367,7 @@ public class NPuzzleLib {
 						else {
 							puzzle[x][y] = puzzle[x][y+1];
 							puzzle[x][y+1] = temp;
-							y++;
+						 y++;
 						}
 				}
 					else if(moves[0] == true && moves[3] == true) {
@@ -379,7 +379,7 @@ public class NPuzzleLib {
 						else {
 							puzzle[x][y] = puzzle[x+1][y];
 							puzzle[x+1][y] = temp;
-							x++;
+						 x++;
 						}
 				}
 					else if(moves[0] == true && moves[1] == true) {
@@ -391,7 +391,7 @@ public class NPuzzleLib {
 						else {
 							puzzle[x][y] = puzzle[x-1][y];
 							puzzle[x-1][y] = temp;
-							x--;
+						 x--;
 						}
 				}
 					
@@ -479,6 +479,18 @@ public class NPuzzleLib {
 			int i=1,temp =0;
 			boolean check = true;
 			Scanner Scanner = new Scanner(System.in);
+			
+			// Display controls information once at the start
+			if(d==1) {
+				System.out.println("Game Controls:");
+				System.out.println("u = Move empty space up");
+				System.out.println("d = Move empty space down");
+				System.out.println("l = Move empty space left");
+				System.out.println("r = Move empty space right");
+				System.out.println("e = Exit game");
+				System.out.println("********************************");
+			}
+			
 			//saves index of 0.
 			for(int h=0; h<N; h++) {
 				for(int v=0; v<N; v++) {
@@ -491,21 +503,21 @@ public class NPuzzleLib {
 			while(issolution(shuffled,start) == false) {
 				String prwto = "st",deutero = "nd", trito = "rd", allo = "th";
 				if(i == 1) {
-					System.out.print("Give "+i+prwto+" Move:");
+					System.out.print("Enter your "+i+prwto+" move (u/d/l/r/e): ");
 				}
 				else if(i == 2) {
-					System.out.print("Give "+i+deutero+" Move:");
+					System.out.print("Enter your "+i+deutero+" move (u/d/l/r/e): ");
 				}
 				else if(i == 3) {
-					System.out.print("Give "+i+trito+" Move:");
+					System.out.print("Enter your "+i+trito+" move (u/d/l/r/e): ");
 				}
 				else
-					System.out.print("Give "+i+allo+" Move:");
+					System.out.print("Enter your "+i+allo+" move (u/d/l/r/e): ");
 				input = getUserCommand();
 				//checks input.
 				while(!(input == 'd'|| input == 'r' || input == 'l' || input == 'u' || input == 'e')) {
-					System.out.println("Wrong input!");
-					System.out.print("Give "+i+"Move:");
+					System.out.println("Invalid input! Please use: u (up), d (down), l (left), r (right), or e (exit)");
+					System.out.print("Enter your move: ");
 					input = getUserCommand();
 				}
 				System.out.println("********************************");
@@ -596,9 +608,12 @@ public class NPuzzleLib {
 			else {
 				StdDraw.clear();		
 				StdDraw.setCanvasSize(700,700);
-				StdDraw.picture(0.5, 0.5, "meow.jpg");
+				StdDraw.setXscale(0, 1);
+				StdDraw.setYscale(0, 1);
+				StdDraw.picture(0.5, 0.5, "meow.jpg", 0.8, 0.6);
 				StdDraw.setPenColor(StdDraw.BLACK);
-				StdDraw.text(0.5, 0.8, "Congragulations!,Puzzle solved!!");
+				StdDraw.text(0.5, 0.7, "Congragulations!,Puzzle solved!!");
+				StdDraw.show();
 			}
 			
 		}
@@ -663,10 +678,14 @@ public class NPuzzleLib {
 		if(k==1) {
 			//prints text based.
 			if(d==1) {
-			System.out.print("Give level of difficulty: ");
+			System.out.println("Interactive Play Mode Selected");
+			System.out.println("Difficulty level determines how many random moves will shuffle the puzzle.");
+			System.out.println("Higher numbers = more difficult puzzles");
+			System.out.print("Enter difficulty level (0 or higher): ");
 			grade = Scanner.nextInt();
 			while(grade<0) {
-				System.out.println("wrong input\ngive a valid input");
+				System.out.println("Invalid input! Difficulty must be 0 or higher.");
+				System.out.print("Enter difficulty level: ");
 				grade = Scanner.nextInt();
 			
 			}
@@ -683,10 +702,17 @@ public class NPuzzleLib {
 				StdDraw.setPenColor(StdDraw.BLACK);
 				StdDraw.filledSquare(0.5, 0.5, 0.5);
 				StdDraw.setPenColor(StdDraw.GREEN);
-				StdDraw.text(0.5, 0.6, "Give level of difficulty: ");
+				StdDraw.text(0.5, 0.65, "Interactive Play Mode");
+				StdDraw.text(0.5, 0.6, "Enter difficulty level (0 or higher):");
+				StdDraw.show();
 				grade = Scanner.nextInt();
 				while(grade<0) {
-					StdDraw.text(0.5, 0.4, "Give level of difficulty: ");
+					StdDraw.clear();
+					StdDraw.setPenColor(StdDraw.BLACK);
+					StdDraw.filledSquare(0.5, 0.5, 0.5);
+					StdDraw.setPenColor(StdDraw.GREEN);
+					StdDraw.text(0.5, 0.6, "Invalid! Enter difficulty level (0+):");
+					StdDraw.show();
 					grade = Scanner.nextInt();
 				
 				}
@@ -699,19 +725,30 @@ public class NPuzzleLib {
 		else if(k==2) {
 			//prints text based graphics
 			if(d==1) {
-			System.out.print("dwse kmin: ");
+			System.out.println("Automatic Play Mode Selected");
+			System.out.println("The computer will attempt to solve puzzles automatically.");
+			System.out.println();
+			System.out.println("Parameter explanations:");
+			System.out.println("kmin: Minimum difficulty level (number of shuffle moves)");
+			System.out.println("kmax: Maximum difficulty level (number of shuffle moves)");
+			System.out.println("p: Number of attempts per difficulty level");
+			System.out.println("q: Maximum moves per attempt");
+			System.out.println();
+			System.out.print("Enter minimum difficulty (kmin): ");
 			grademin = Scanner.nextInt();
-			System.out.print("dwse kmax: ");
+			System.out.print("Enter maximum difficulty (kmax): ");
 			grademax = Scanner.nextInt();
-			System.out.print("dwse p: ");
+			System.out.print("Enter number of attempts per level (p): ");
 			p = Scanner.nextInt();
-			System.out.print("dwse q: ");
+			System.out.print("Enter maximum moves per attempt (q): ");
 			q = Scanner.nextInt();
 			while(grademin<0 || grademax<0 || grademin>grademax) {
-				System.out.print("wrong input\ngive a valid input");
-				System.out.print("dwse kmin: ");
+				System.out.println("Invalid input! Requirements:");
+				System.out.println("- kmin and kmax must be >= 0");
+				System.out.println("- kmax must be >= kmin");
+				System.out.print("Enter minimum difficulty (kmin): ");
 				grademin = Scanner.nextInt();
-				System.out.print("dwse kmax: ");
+				System.out.print("Enter maximum difficulty (kmax): ");
 				grademax = Scanner.nextInt();
 		}
 			}
@@ -722,19 +759,30 @@ public class NPuzzleLib {
 				StdDraw.setPenColor(StdDraw.BLACK);
 				StdDraw.filledSquare(0.5, 0.5, 0.5);
 				StdDraw.setPenColor(StdDraw.GREEN);
-				StdDraw.text(0.5, 0.6, "dwse kmin");
+				StdDraw.text(0.5, 0.7, "Automatic Play Mode");
+				StdDraw.text(0.5, 0.65, "Enter minimum difficulty (kmin):");
+				StdDraw.show();
 				grademin = Scanner.nextInt();
-				StdDraw.text(0.5, 0.55, "dwse kmax");
+				StdDraw.text(0.5, 0.6, "Enter maximum difficulty (kmax):");
+				StdDraw.show();
 				grademax = Scanner.nextInt();
-				StdDraw.text(0.5, 0.5, "dwse p: ");
+				StdDraw.text(0.5, 0.55, "Enter attempts per level (p):");
+				StdDraw.show();
 				p = Scanner.nextInt();
-				StdDraw.text(0.5, 0.45, "dwse q: ");
+				StdDraw.text(0.5, 0.5, "Enter max moves per attempt (q):");
+				StdDraw.show();
 				q = Scanner.nextInt();
 				while(grademin<0 || grademax<0 || grademin>grademax) {
-					StdDraw.text(0.5, 0.4, "wrong input\ngive valid input");
-					StdDraw.text(0.5, 0.35, "dwse kmin");
+					StdDraw.clear();
+					StdDraw.setPenColor(StdDraw.BLACK);
+					StdDraw.filledSquare(0.5, 0.5, 0.5);
+					StdDraw.setPenColor(StdDraw.GREEN);
+					StdDraw.text(0.5, 0.6, "Invalid input! Check requirements");
+					StdDraw.text(0.5, 0.55, "Enter minimum difficulty (kmin):");
+					StdDraw.show();
 					grademin = Scanner.nextInt();
-					StdDraw.text(0.5, 0.3, "dwse q: ");
+					StdDraw.text(0.5, 0.5, "Enter maximum difficulty (kmax):");
+					StdDraw.show();
 					grademax = Scanner.nextInt();
 			}
 				
@@ -744,6 +792,7 @@ public class NPuzzleLib {
 			StdDraw.setPenColor(StdDraw.BLACK);
 			StdDraw.filledSquare(0.5, 0.5, 0.5);
 			StdDraw.setPenColor(StdDraw.GREEN);
+			StdDraw.text(0.5, 0.8, "Running automatic solver...");
 			StdDraw.show();
 			}
 			double xwidth = 0.7;	
@@ -788,11 +837,11 @@ public class NPuzzleLib {
 				zaza = (float)pl/p;
 				//prints average moves and winning percentage on text based graphics
 				if(d==1) {
-				System.out.println("Gia k= "+i+" ekane meso oro kinisewn "+dekadika.format(za)+" kai nikise "+dekadika.format(zaza*100)+"% fores");
+				System.out.println("For difficulty k="+i+": Average moves = "+dekadika.format(za)+", Success rate = "+dekadika.format(zaza*100)+"%");
 				}
 				//prints average moves and winning percentage on stddraw graphics.
 				else
-					StdDraw.text(0.5, xwidth, "Gia k= "+i+" ekane meso oro kinisewn "+dekadika.format(za)+" kai nikise "+dekadika.format(zaza*100)+"% fores");
+					StdDraw.text(0.5, xwidth, "k="+i+": Avg moves = "+dekadika.format(za)+", Success = "+dekadika.format(zaza*100)+"%");
 			}
 		}
 		else if(k==3) {
